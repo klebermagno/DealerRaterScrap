@@ -70,6 +70,7 @@ public class App {
             log.info("Can't find any overly positive endorsements!");
         for (int i =0;i<3&&i<sortedSentiment.size();i++) {
             ReviewSentiment reviewSentiment = sortedSentiment.get(i);
+            log.info("----------------------Overly positive endorsement---------------------------");
             log.info("User: " + reviewSentiment.getDealerRaterReview().getUser());
             log.info("TotalScore: " + reviewSentiment.getTotalScore());
             log.info("Title: " + reviewSentiment.getDealerRaterReview().getTitle());
