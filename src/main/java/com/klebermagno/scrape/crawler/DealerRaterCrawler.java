@@ -21,7 +21,7 @@ public class DealerRaterCrawler extends Thread{
     private String parameters;
     private WebClient client;
     private HtmlPage htmlPage;
-    private List<DealerRaterReview> dealerRaterReviews;
+
 
 
     public DealerRaterCrawler(String url, String page,String parameters) {
@@ -36,7 +36,6 @@ public class DealerRaterCrawler extends Thread{
 
 
     public List<DealerRaterReview> init(int pageNumber) {
-        dealerRaterReviews = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
         sb.append(this.url);
         sb.append(this.page + pageNumber);
@@ -52,6 +51,7 @@ public class DealerRaterCrawler extends Thread{
     }
 
     private List<DealerRaterReview> extract() {
+        List<DealerRaterReview> dealerRaterReviews = null;
         HtmlElement reviewSection = htmlPage.getFirstByXPath(DealerRaterEnum.REVIEW_SECTION.label);
         List<HtmlElement> reviewWarpper = reviewSection.getByXPath(DealerRaterEnum.REVIEW_WARPPER.label);
         if (reviewWarpper.isEmpty()) {
@@ -59,14 +59,15 @@ public class DealerRaterCrawler extends Thread{
         } else {
             for (int i = 0; i < reviewWarpper.size(); i++) {
                 HtmlElement review = reviewWarpper.get(i);
-                mapper(review, i);
+                dealerRaterReviews =mapper(review, i);
             }
         }
 
-        return this.dealerRaterReviews;
+        return dealerRaterReviews;
     }
 
-    private void mapper(HtmlElement review, int position) {
+    private  List<DealerRaterReview> mapper(HtmlElement review, int position) {
+        List<DealerRaterReview> dealerRaterReviews  = new ArrayList<>();;
         DealerRaterReview dealerRaterReview = new DealerRaterReview();
 
         HtmlSpan reviewTitle = review.getFirstByXPath(DealerRaterEnum.REVIEW_TITLE.label);
@@ -85,7 +86,9 @@ public class DealerRaterCrawler extends Thread{
 
         extractSpecificRatings(review,dealerRaterReview,position);
 
-        this.dealerRaterReviews.add(dealerRaterReview);
+        dealerRaterReviews.add(dealerRaterReview);
+        return dealerRaterReviews;
+
     }
 
 
