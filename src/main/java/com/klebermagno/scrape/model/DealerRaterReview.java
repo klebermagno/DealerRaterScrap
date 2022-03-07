@@ -1,10 +1,14 @@
 package com.klebermagno.scrape.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
+
 @Data
+@AllArgsConstructor
+@Builder
 public class DealerRaterReview {
-    enum REASON_FOR_VISIT { NEW , USED , SERVICE};
 
     public String title;
     public String review;
@@ -15,11 +19,11 @@ public class DealerRaterReview {
     public int overallExperience;
     public int qualityOfWork;
     public int pricing;
-    public boolean recommendDealer;
-    public REASON_FOR_VISIT reasonForVisit;
-    public String date;
-    public String helpfulCount;
+    public Boolean recommendDealer;
 
+    public DealerRaterReview(){
+
+    }
     @Override
     public String toString() {
         return "DealerRaterReview{" +
@@ -33,9 +37,6 @@ public class DealerRaterReview {
                 ",\n qualityOfWork=" + qualityOfWork +
                 ",\n pricing=" + pricing +
                 ",\n recommendDealer=" + recommendDealer +
-                ",\n reasonForVisit=" + reasonForVisit +
-                ",\n date='" + date + '\'' +
-                ",\n helpfulCount='" + helpfulCount + '\'' +
                 "}\n\n\n";
     }
 }
