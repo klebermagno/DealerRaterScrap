@@ -28,7 +28,6 @@ public class App {
 
     private static String baseUrl = "https://www.dealerrater.com/dealer/McKaig-Chevrolet-Buick-A-Dealer-For-The-People-dealer-reviews-23685/";
     private static String paginator = "page";
-    //private static String parameter = "/?filter=ONLY_NEGATIVE#link";
     private static String parameter = "/?filter=#link";
     private static int pages = 5;
     List<DealerRaterReview> reviews =Collections.synchronizedList(new ArrayList());
@@ -41,6 +40,10 @@ public class App {
     }
 
 
+    /**
+     * Fist step is scrap all reviews from page.
+     * @return List of dealer rate review.
+     */
     private List<DealerRaterReview> extractReviews( ) {
 
         IntStream.range(1, pages + 1).parallel().forEach(n -> {
@@ -54,6 +57,11 @@ public class App {
         return reviews;
     }
 
+    /**
+     * Analyze the review and calc total score.
+     * @param reviews List of reviews.
+     * @return List of Sentiment score.
+     */
     public List<ReviewSentiment> analyzeReview(List<DealerRaterReview> reviews) {
         ReviewAnalyzer reviewAnalyzer = new ReviewAnalyzer();
         List<ReviewSentiment> sentimentsReviews = reviewAnalyzer.analyze(reviews);
