@@ -28,8 +28,8 @@ public class App {
 
     private static String baseUrl = "https://www.dealerrater.com/dealer/McKaig-Chevrolet-Buick-A-Dealer-For-The-People-dealer-reviews-23685/";
     private static String paginator = "page";
-    private static String parameter = "/?filter=ONLY_NEGATIVE#link";
-    //private static String parameter = "/?filter=#link";
+    //private static String parameter = "/?filter=ONLY_NEGATIVE#link";
+    private static String parameter = "/?filter=#link";
     private static int pages = 5;
     List<DealerRaterReview> reviews =Collections.synchronizedList(new ArrayList());
 
