@@ -33,6 +33,19 @@ public class ReviewAnalyzerTest {
         List<DealerRaterReview> dealerRaterReviews = objectDealerRaterReviews();
         ReviewAnalyzer analyzer = new ReviewAnalyzer();
         List<ReviewSentiment> reviewSentiments = analyzer.analyze(dealerRaterReviews);
-        assertEquals(330.0, reviewSentiments.get(0).getTotalScore(), 0);
+        assertEquals(340.0, reviewSentiments.get(0).getTotalScore(), 0);
+        assertEquals(330.0, reviewSentiments.get(1).getTotalScore(), 0);
+        assertEquals(330.0, reviewSentiments.get(2).getTotalScore(), 0);
+        assertEquals(-150.0, reviewSentiments.get(3).getTotalScore(), 0);
+        assertEquals(-180.0, reviewSentiments.get(8).getTotalScore(), 0);
+    }
+
+    @Test
+    public void shouldCutLineRule() {
+        List<DealerRaterReview> dealerRaterReviews = objectDealerRaterReviews();
+        ReviewAnalyzer analyzer = new ReviewAnalyzer();
+        List<ReviewSentiment> reviewSentiments = analyzer.analyze(dealerRaterReviews);
+        List<ReviewSentiment> reviewSentimentsCutLine = analyzer.removeCutLine(reviewSentiments);
+        assertEquals(3, reviewSentimentsCutLine.size());
     }
 }
