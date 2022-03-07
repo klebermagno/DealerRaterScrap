@@ -37,7 +37,7 @@ public class ReviewAnalyzerTest {
         assertEquals(330.0, reviewSentiments.get(1).getTotalScore(), 0);
         assertEquals(330.0, reviewSentiments.get(2).getTotalScore(), 0);
         assertEquals(-150.0, reviewSentiments.get(3).getTotalScore(), 0);
-        assertEquals(-180.0, reviewSentiments.get(8).getTotalScore(), 0);
+        assertEquals(-180.0, reviewSentiments.get(4).getTotalScore(), 0);
     }
 
     @Test
