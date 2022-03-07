@@ -64,7 +64,7 @@ public class RatingExtractor {
                 case "Recommend Dealer":
                     HtmlElement recommendDealerRating = elementList.get(i + 1);
                     log.debug("Recommend Dealer class:" + recommendDealerRating.getVisibleText());
-                    dealerRaterReview.setRecommendDealer(recommendDealerRating.getVisibleText().equals("YES") ? true : false);
+                    dealerRaterReview.setRecommendDealer(recommendDealerRating.getVisibleText().equals("Yes") ? true : false);
                     break;
                 default:
                     log.debug("Can't find any rating");
