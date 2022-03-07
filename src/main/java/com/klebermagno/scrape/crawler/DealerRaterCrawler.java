@@ -51,7 +51,7 @@ public class DealerRaterCrawler extends Thread{
     }
 
     private List<DealerRaterReview> extract() {
-        List<DealerRaterReview> dealerRaterReviews = null;
+        List<DealerRaterReview> dealerRaterReviews = new ArrayList<>();
         HtmlElement reviewSection = htmlPage.getFirstByXPath(DealerRaterEnum.REVIEW_SECTION.label);
         List<HtmlElement> reviewWarpper = reviewSection.getByXPath(DealerRaterEnum.REVIEW_WARPPER.label);
         if (reviewWarpper.isEmpty()) {
@@ -59,7 +59,7 @@ public class DealerRaterCrawler extends Thread{
         } else {
             for (int i = 0; i < reviewWarpper.size(); i++) {
                 HtmlElement review = reviewWarpper.get(i);
-                dealerRaterReviews =mapper(review, i);
+                dealerRaterReviews.addAll(mapper(review, i));
             }
         }
 
@@ -80,7 +80,7 @@ public class DealerRaterCrawler extends Thread{
 
         HtmlSpan reviewUser = review.getFirstByXPath(DealerRaterEnum.REVIEW_USER.label);
         log.debug("Review user: " +reviewUser.getTextContent());
-        dealerRaterReview.setUser(reviewUser.getTextContent());
+        dealerRaterReview.setUser(reviewUser.getTextContent().replaceAll("by ", ""));
 
         extractGeralRating(review,dealerRaterReview,position);
 
