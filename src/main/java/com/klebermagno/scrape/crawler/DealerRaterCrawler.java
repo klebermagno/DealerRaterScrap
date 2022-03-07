@@ -35,8 +35,6 @@ public class DealerRaterCrawler extends Thread{
 
 
 
-
-
     public List<DealerRaterReview> init(int pageNumber) {
         dealerRaterReviews = new ArrayList<>();
         StringBuilder sb = new StringBuilder();

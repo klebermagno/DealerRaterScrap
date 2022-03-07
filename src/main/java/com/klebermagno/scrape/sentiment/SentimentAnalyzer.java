@@ -2,6 +2,8 @@ package com.klebermagno.scrape.sentiment;
 
 import java.util.Properties;
 
+import com.klebermagno.scrape.model.SentimentClassification;
+import com.klebermagno.scrape.model.SentimentResult;
 import org.ejml.simple.SimpleMatrix;
 
 
