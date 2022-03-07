@@ -41,3 +41,10 @@ The KGB has noticed a resurgence of overly excited reviews for the McKaig Chevro
        docker-compose up 
 
 4. See the result in console.
+
+# How to test
+
+To run all test you need.
+   Run maven to build and package the project:
+
+       mvn clean test
