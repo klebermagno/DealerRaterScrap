@@ -2,6 +2,9 @@ package com.klebermagno.scrape.model;
 
 import lombok.Data;
 
+/**
+ * Represent Sentiment Classiftion.
+ */
 @Data
 public class SentimentClassification {
 

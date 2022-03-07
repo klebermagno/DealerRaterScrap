@@ -4,7 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
-
+/**
+ * Represent the review information.
+ */
 @Data
 @AllArgsConstructor
 @Builder

@@ -2,6 +2,9 @@ package com.klebermagno.scrape.model;
 
 import lombok.Data;
 
+/**
+ * Represent review sentiment.
+ */
 @Data
 public class ReviewSentiment implements  Comparable<ReviewSentiment>{
 

@@ -13,8 +13,14 @@ import java.util.List;
 import static com.klebermagno.scrape.crawler.RatingExtractor.extractGeralRating;
 import static com.klebermagno.scrape.crawler.RatingExtractor.extractSpecificRatings;
 
+/**
+ * Represt a Dealer Rater Crawler.
+ *
+ * @version 1.0.0
+ * @Author Kleber Magno Maciel Vieir.
+ */
 @Slf4j
-public class DealerRaterCrawler extends Thread{
+public class DealerRaterCrawler extends Thread {
 
     private String url;
     private String page;
@@ -23,8 +29,14 @@ public class DealerRaterCrawler extends Thread{
     private HtmlPage htmlPage;
 
 
-
-    public DealerRaterCrawler(String url, String page,String parameters) {
+    /**
+     * Create a DealerRaterCrawler
+     *
+     * @param url        Url
+     * @param page       paginator prefix.
+     * @param parameters page number.
+     */
+    public DealerRaterCrawler(String url, String page, String parameters) {
         this.url = url;
         client = new WebClient();
         client.getOptions().setCssEnabled(false);
@@ -34,7 +46,12 @@ public class DealerRaterCrawler extends Thread{
     }
 
 
-
+    /**
+     * Init crawler.
+     *
+     * @param pageNumber page number.
+     * @return List of all DealerRaterReview from this page.
+     */
     public List<DealerRaterReview> init(int pageNumber) {
         StringBuilder sb = new StringBuilder();
         sb.append(this.url);
@@ -42,13 +59,14 @@ public class DealerRaterCrawler extends Thread{
         sb.append(this.parameters);
         try {
 
-            log.debug("Start crawler "+ pageNumber+ " in: " +sb.toString());
+            log.debug("Start crawler " + pageNumber + " in: " + sb.toString());
             this.htmlPage = client.getPage(sb.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
-       return  extract();
+        return extract();
     }
+
 
     private List<DealerRaterReview> extract() {
         List<DealerRaterReview> dealerRaterReviews = new ArrayList<>();
@@ -66,34 +84,31 @@ public class DealerRaterCrawler extends Thread{
         return dealerRaterReviews;
     }
 
-    private  List<DealerRaterReview> mapper(HtmlElement review, int position) {
-        List<DealerRaterReview> dealerRaterReviews  = new ArrayList<>();;
+    private List<DealerRaterReview> mapper(HtmlElement review, int position) {
+        List<DealerRaterReview> dealerRaterReviews = new ArrayList<>();
+        ;
         DealerRaterReview dealerRaterReview = new DealerRaterReview();
 
         HtmlSpan reviewTitle = review.getFirstByXPath(DealerRaterEnum.REVIEW_TITLE.label);
-        log.debug("Review title: " +reviewTitle.getTextContent());
+        log.debug("Review title: " + reviewTitle.getTextContent());
         dealerRaterReview.setTitle(reviewTitle.getTextContent());
 
         HtmlSpan reviewWhole = review.getFirstByXPath(DealerRaterEnum.REVIEW_WHOLE.label);
-        log.debug("Review whole: " +reviewWhole.getTextContent());
+        log.debug("Review whole: " + reviewWhole.getTextContent());
         dealerRaterReview.setReview(reviewWhole.getTextContent());
 
         HtmlSpan reviewUser = review.getFirstByXPath(DealerRaterEnum.REVIEW_USER.label);
-        log.debug("Review user: " +reviewUser.getTextContent());
+        log.debug("Review user: " + reviewUser.getTextContent());
         dealerRaterReview.setUser(reviewUser.getTextContent().replaceAll("by ", ""));
 
-        extractGeralRating(review,dealerRaterReview,position);
+        extractGeralRating(review, dealerRaterReview, position);
 
-        extractSpecificRatings(review,dealerRaterReview,position);
+        extractSpecificRatings(review, dealerRaterReview, position);
 
         dealerRaterReviews.add(dealerRaterReview);
         return dealerRaterReviews;
 
     }
-
-
-
-
 
 
 }

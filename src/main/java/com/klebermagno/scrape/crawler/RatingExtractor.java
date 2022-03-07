@@ -12,20 +12,36 @@ import java.util.Optional;
 
 import static org.apache.commons.lang3.math.NumberUtils.isDigits;
 
+/**
+ * Extract rating from page review.
+ */
 @Slf4j
 public class RatingExtractor {
 
-    public static void extractGeralRating(HtmlElement review, DealerRaterReview dealerRaterReview, int position) {
+    /**
+     * Extract general Rating.
+     * @param review html element.
+     * @param dealerRaterReview dealer object to set the value.
+     * @param order order.
+     */
+    public static void extractGeralRating(HtmlElement review, DealerRaterReview dealerRaterReview, int order) {
         List<HtmlDivision> ratings = review.getByXPath(DealerRaterEnum.RATING_STATIC.label);
-        HtmlDivision ratingStatic = ratings.get(position);
+        HtmlDivision ratingStatic = ratings.get(order);
         dealerRaterReview.setRatingStatic(extractRater(ratingStatic.getAttribute("class")));
-        log.debug("position: " + position + " ration: " + extractRater(ratingStatic.getAttribute("class")));
+        log.debug("order: " + order + " ration: " + extractRater(ratingStatic.getAttribute("class")));
 
     }
 
-    public static void extractSpecificRatings(HtmlElement review, DealerRaterReview dealerRaterReview, int position) {
+    /**
+     * Extract customer service score, friendliness, pricing quality of work,
+     * rating static, overall experience and recommend dealer.
+     * @param review html element.
+     * @param dealerRaterReview dealer object to set the values.
+     * @param order review order.
+     */
+    public static void extractSpecificRatings(HtmlElement review, DealerRaterReview dealerRaterReview, int order) {
         List<HtmlDivision> ratings = (List) review.getByXPath(DealerRaterEnum.RATINGS.label);
-        HtmlDivision ratingTable = ratings.get(position);
+        HtmlDivision ratingTable = ratings.get(order);
         Iterable<HtmlElement> elements = ratingTable.getHtmlElementDescendants();
         List<HtmlElement> elementList = IteratorUtils.toList(elements.iterator());
         for (int i = 0; i < elementList.size(); i++) {
@@ -72,6 +88,11 @@ public class RatingExtractor {
         }
     }
 
+    /**
+     * Extract score from css.
+     * @param classes css class with score.
+     * @return score value.
+     */
     public static int extractRater(String classes) {
         Optional<String> optional = Arrays.asList(classes.split(" ")).stream().filter(clas ->
                 clas.contains("rating-5") ||

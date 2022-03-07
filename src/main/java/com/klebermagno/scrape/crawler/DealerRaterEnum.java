@@ -1,6 +1,8 @@
 package com.klebermagno.scrape.crawler;
 
-
+/**
+ * Search attributes to crawker.
+ */
 public enum DealerRaterEnum {
 
     REVIEW_SECTION(".//div[(@id='reviewsSection')]"),

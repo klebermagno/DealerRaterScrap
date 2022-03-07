@@ -1,8 +1,10 @@
 package com.klebermagno.scrape.model;
 
-import com.klebermagno.scrape.model.SentimentClassification;
 import lombok.Data;
 
+/**
+ * Represent sentiment result.
+ */
 @Data
 public class SentimentResult {
 
