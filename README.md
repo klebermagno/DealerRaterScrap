@@ -10,3 +10,9 @@
 
 ## Analytics Criteria
 
+
+Use Stanford NLP to analyse text sentiment, this value is from 0 to 4, so have weight 10.
+Sum customer service score, friendliness, pricing quality of work, rating static and overall experience with weight 1.
+If user don't recommend dealer score are multiply to -1 to ignore this review.
+All score are added.
+Reviews with score over 330 is considered overly positive.
