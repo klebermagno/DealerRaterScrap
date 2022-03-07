@@ -22,7 +22,7 @@ The KGB has noticed a resurgence of overly excited reviews for the McKaig Chevro
 
 * All score are added.
 
-* Reviews with score over 330 is considered overly positive.
+* Reviews with score over 290 is considered overly positive.
 
 
 # How setup the project:
@@ -38,4 +38,6 @@ The KGB has noticed a resurgence of overly excited reviews for the McKaig Chevro
 
 3. To run docker container:
 
-       docker-compose up -d
+       docker-compose up 
+
+4. See the result in console.

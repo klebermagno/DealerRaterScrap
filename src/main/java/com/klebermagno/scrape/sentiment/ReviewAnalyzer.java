@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ReviewAnalyzer {
 
-    private double scoreCutLine = 300;
+    private double scoreCutLine = 290;
 
     public  List<ReviewSentiment> analyze(List<DealerRaterReview> reviews) {
         log.info("Analyze " +reviews.size()+" review sentiment. ");
