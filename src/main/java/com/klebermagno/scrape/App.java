@@ -28,10 +28,10 @@ public class App {
 
     private static String baseUrl = "https://www.dealerrater.com/dealer/McKaig-Chevrolet-Buick-A-Dealer-For-The-People-dealer-reviews-23685/";
     private static String paginator = "page";
-    //private static String parameter = "/?filter=ONLY_NEGATIVE#link";
-    private static String parameter = "/?filter=#link";
+    private static String parameter = "/?filter=ONLY_NEGATIVE#link";
+    //private static String parameter = "/?filter=#link";
     private static int pages = 5;
-
+    List<DealerRaterReview> reviews =Collections.synchronizedList(new ArrayList());
 
 
 
@@ -42,12 +42,13 @@ public class App {
 
 
     private List<DealerRaterReview> extractReviews( ) {
-        List<DealerRaterReview> reviews =Collections.synchronizedList(new ArrayList());
+
         IntStream.range(1, pages + 1).parallel().forEach(n -> {
                     DealerRaterCrawler dealerRaterCrawler = new DealerRaterCrawler(baseUrl, paginator, parameter);
-                    log.info("Scrape page: " + n);
-                     reviews.addAll(dealerRaterCrawler.init(n));
-
+                    log.debug("Scrape page: " + n);
+                    List<DealerRaterReview>  review = dealerRaterCrawler.init(n);
+                    log.debug("Scrape page: " + n+" scraped review:" +review.size());
+                    reviews.addAll(review);
                 }
         );
         return reviews;
@@ -58,19 +59,23 @@ public class App {
         List<ReviewSentiment> sentimentsReviews = reviewAnalyzer.analyze(reviews);
         log.info("Total of reviews: " + sentimentsReviews.size());
 
-        return sentimentsReviews;
+        return reviewAnalyzer.removeCutLine(sentimentsReviews);
     }
 
     public static void main(String[] args) {
         App app = new App();
         List<DealerRaterReview> reviews = app.extractReviews();
         List<ReviewSentiment> sortedSentiment = app.analyzeReview(reviews);
+        if (sortedSentiment.size()==0)
+            log.info("Can't find any overly positive endorsements!");
+        for (int i =0;i<3&&i<sortedSentiment.size();i++) {
+            ReviewSentiment reviewSentiment = sortedSentiment.get(i);
+            log.info("User: " + reviewSentiment.getDealerRaterReview().getUser());
+            log.info("TotalScore: " + reviewSentiment.getTotalScore());
+            log.info("Title: " + reviewSentiment.getDealerRaterReview().getTitle());
+        }
 
-        sortedSentiment.subList(0, 3).stream().forEach(reviewSentiment -> {
-            System.out.println("User: " + reviewSentiment.getDealerRaterReview().getUser());
-            System.out.println("TotalScore: " + reviewSentiment.getTotalScore());
-            System.out.println("Title: " + reviewSentiment.getDealerRaterReview().getTitle());
-        });
+
     }
 
 }
