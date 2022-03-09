@@ -44,12 +44,12 @@ public class App {
      * Fist step is scrap all reviews from page.
      * @return List of dealer rate review.
      */
-    private List<DealerRaterReview> extractReviews( ) {
+    public List<DealerRaterReview> extractReviews( ) {
 
         IntStream.range(1, pages + 1).parallel().forEach(n -> {
-                    DealerRaterCrawler dealerRaterCrawler = new DealerRaterCrawler(baseUrl, paginator, parameter);
+                    DealerRaterCrawler dealerRaterCrawler = new DealerRaterCrawler(baseUrl, paginator+n, parameter);
                     log.debug("Scrape page: " + n);
-                    List<DealerRaterReview>  review = dealerRaterCrawler.init(n);
+                    List<DealerRaterReview>  review = dealerRaterCrawler.init();
                     log.debug("Scrape page: " + n+" scraped review:" +review.size());
                     reviews.addAll(review);
                 }

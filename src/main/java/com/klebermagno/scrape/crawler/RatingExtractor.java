@@ -2,6 +2,7 @@ package com.klebermagno.scrape.crawler;
 
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 import com.klebermagno.scrape.model.DealerRaterReview;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.IteratorUtils;
@@ -110,4 +111,38 @@ public class RatingExtractor {
         }
         return 0;
     }
+
+    /**
+     * Extract user.
+     * @param review html element.
+     * @param dealerRaterReview dealer object to set the values.
+     */
+    public static  void extractUser(HtmlElement review, DealerRaterReview dealerRaterReview) {
+        HtmlSpan reviewUser = review.getFirstByXPath(DealerRaterEnum.REVIEW_USER.label);
+        log.debug("Review user: " + reviewUser.getTextContent());
+        dealerRaterReview.setUser(reviewUser.getTextContent().replaceAll("by ", ""));
+    }
+
+    /**
+     * Extract review
+     * @param review html element.
+     * @param dealerRaterReview dealer object to set the values.
+     */
+    public static  void extractReview(HtmlElement review, DealerRaterReview dealerRaterReview) {
+        HtmlSpan reviewWhole = review.getFirstByXPath(DealerRaterEnum.REVIEW_WHOLE.label);
+        log.debug("Review whole: " + reviewWhole.getTextContent());
+        dealerRaterReview.setReview(reviewWhole.getTextContent());
+    }
+
+    /**
+     * Extract Title
+     * @param review html element.
+     * @param dealerRaterReview dealer object to set the values.
+     */
+    public static  void extractTitle(HtmlElement review, DealerRaterReview dealerRaterReview) {
+        HtmlSpan reviewTitle = review.getFirstByXPath(DealerRaterEnum.REVIEW_TITLE.label);
+        log.debug("Review title: " + reviewTitle.getTextContent());
+        dealerRaterReview.setTitle(reviewTitle.getTextContent());
+    }
+
 }
