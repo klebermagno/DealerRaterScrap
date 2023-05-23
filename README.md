@@ -1,5 +1,14 @@
 # Dealer Rater Scrape
-The KGB has noticed a resurgence of overly excited reviews for the McKaig Chevrolet Buick, a dealership they have planted in the United States. In order to avoid attracting unwanted attention, you've been enlisted to scrape reviews for this dealership from DealerRater.com and uncover the top three worst offenders of these overly positive endorsements.
+The Dealer Rater Crawler is a robust and highly sophisticated back-end system, primarily built with Java 8. This application serves as a targeted web crawler for car dealer reviews, effectively scraping the first five pages of customer feedback.
+
+The crawler is designed with advanced analytics capabilities, recognizing and highlighting the top three most "overly positive" reviews based on the severity of their endorsement. These reviews are then neatly displayed in the console, providing users with immediate, crucial insights.
+
+The system has been crafted with a keen emphasis on testing, using JUnit for comprehensive unit testing to guarantee reliable operation and robustness. To enhance the crawling capabilities, the project employs HtmlUnit, allowing for efficient page navigation and data extraction.
+
+One of the standout features is the integration of Stanford NLP for text sentiment analysis. This sophisticated language processing tool enables the crawler to accurately assess and categorize the sentiment behind each review, thus ensuring the "overly positive" reviews are correctly identified.
+
+The Dealer Rater Crawler offers a unique blend of web crawling and sentiment analysis, presenting a useful tool for car dealers and consumers alike.
+
 
 ## Your mission, should you choose to accept it, is to write a tool that:
 
